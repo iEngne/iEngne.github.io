@@ -20,20 +20,25 @@
     var CONFIG = {"hostname":"iengne.vercel.app","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="虽然github已经在网页上增加了fetch upstream功能，但如果有冲突，只能手动merge.以下记录一次手动合并的过程：">
+  <meta name="description" content="收集了一些电子书，大部分是PDF文件，看的时候会直接在PDF文件上划一些重点和标注，这就需要一种能同步修改的方法。显然普通的存储网盘达不到要求，普通网盘要同步只能有点修改就上传，太麻烦。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="github fork 项目同步上游">
-<meta property="og:url" content="https://iengne.vercel.app/2022/01/13/fork-merge/index.html">
+<meta property="og:title" content="win10下挂载阿里云网盘">
+<meta property="og:url" content="https://iengne.vercel.app/2022/05/10/aliyun-driver-webdav/index.html">
 <meta property="og:site_name" content="孑影">
-<meta property="og:description" content="虽然github已经在网页上增加了fetch upstream功能，但如果有冲突，只能手动merge.以下记录一次手动合并的过程：">
+<meta property="og:description" content="收集了一些电子书，大部分是PDF文件，看的时候会直接在PDF文件上划一些重点和标注，这就需要一种能同步修改的方法。显然普通的存储网盘达不到要求，普通网盘要同步只能有点修改就上传，太麻烦。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-13T08:52:25.000Z">
-<meta property="article:modified_time" content="2022-01-14T06:02:07.000Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/12248888/150632769-ea6b7a0f-4170-44d6-bafb-92b2a7c1726b.png">
+<meta property="og:image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/5/RaiDrive.png">
+<meta property="og:image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/5/aliyun-WebDAV.png">
+<meta property="article:published_time" content="2022-05-10T08:24:51.000Z">
+<meta property="article:modified_time" content="2022-05-11T01:53:26.613Z">
 <meta property="article:author" content="iEngne">
-<meta property="article:tag" content="github">
+<meta property="article:tag" content="阿里云盘">
+<meta property="article:tag" content="WebDAV">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/12248888/150632769-ea6b7a0f-4170-44d6-bafb-92b2a7c1726b.png">
 
-<link rel="canonical" href="https://iengne.vercel.app/2022/01/13/fork-merge/">
+<link rel="canonical" href="https://iengne.vercel.app/2022/05/10/aliyun-driver-webdav/">
 
 
 <script id="page-configurations">
@@ -46,7 +51,7 @@
   };
 </script>
 
-  <title>github fork 项目同步上游 | 孑影</title>
+  <title>win10下挂载阿里云网盘 | 孑影</title>
   
 
 
@@ -196,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://iengne.vercel.app/2022/01/13/fork-merge/">
+    <link itemprop="mainEntityOfPage" href="https://iengne.vercel.app/2022/05/10/aliyun-driver-webdav/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/3/wing/android-chrome-192x192.png">
@@ -209,7 +214,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          github fork 项目同步上游
+          win10下挂载阿里云网盘
         </h1>
 
         <div class="post-meta">
@@ -219,14 +224,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-01-13 16:52:25" itemprop="dateCreated datePublished" datetime="2022-01-13T16:52:25+08:00">2022-01-13</time>
+              <time title="创建时间：2022-05-10 16:24:51" itemprop="dateCreated datePublished" datetime="2022-05-10T16:24:51+08:00">2022-05-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-01-14 14:02:07" itemprop="dateModified" datetime="2022-01-14T14:02:07+08:00">2022-01-14</time>
+                <time title="修改时间：2022-05-11 09:53:26" itemprop="dateModified" datetime="2022-05-11T09:53:26+08:00">2022-05-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -234,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%BC%80%E5%8F%91%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">开发日常</span></a>
+                  <a href="/categories/%E7%9E%8E%E6%8A%98%E8%85%BE/" itemprop="url" rel="index"><span itemprop="name">瞎折腾</span></a>
                 </span>
             </span>
 
@@ -249,20 +254,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>虽然github已经在网页上增加了<strong>fetch upstream</strong>功能，但如果有冲突，只能手动merge.<br>以下记录一次手动合并的过程：</p>
+        <p>收集了一些电子书，大部分是PDF文件，看的时候会直接在PDF文件上划一些重点和标注，这就需要一种能同步修改的方法。显然普通的存储网盘达不到要求，普通网盘要同步只能有点修改就上传，太麻烦。</p>
 <span id="more"></span>
-<hr>
+<h3 id="尝试一-git仓库"><a href="#尝试一-git仓库" class="headerlink" title="尝试一 git仓库"></a>尝试一 git仓库</h3><p>首先想到的是github或者gitlab存储，修改后通过git push保存修改内容。但是书有2个G多，github单个仓库限额1G,gitlab虽然页面写着<code>git push and GitLab project imports are limited to 5 GB per request through Cloudflare.</code>但是实际测试了下，发现还是失败了。况且实际使用时还挺麻烦，还得自己commit，push，最终放弃了。</p>
+<h3 id="尝试二-百度网盘、坚果云、和彩云等的同步功能。"><a href="#尝试二-百度网盘、坚果云、和彩云等的同步功能。" class="headerlink" title="尝试二 百度网盘、坚果云、和彩云等的同步功能。"></a>尝试二 百度网盘、坚果云、和彩云等的同步功能。</h3><p>百度网盘自带有同步盘功能—同步空间。试了下还不错，还有同步记录，但是有流量限制，每个月1G，我这2G的电子书，完成同步需要2个月，太费劲了。包括坚果云也一样，有流量限制，放弃了，和彩云的没试。</p>
+<h3 id="推荐-尝试三-阿里云盘本地挂载"><a href="#推荐-尝试三-阿里云盘本地挂载" class="headerlink" title="(推荐)尝试三 阿里云盘本地挂载"></a>(推荐)尝试三 阿里云盘本地挂载</h3><p>想起之前给路由器刷OpenWrt的时候，有可以将阿里云盘挂载到路由器的插件，搜了搜，发现有win10下挂载阿里云盘的方法，挂载后在windows资源管理器中有盘符，跟访问本地磁盘一样，类似挂载samba的效果，可以说非常棒了。</p>
+<h4 id="一-需要的软件"><a href="#一-需要的软件" class="headerlink" title="一.需要的软件"></a>一.需要的软件</h4><ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/messense/aliyundrive-webdav">https://github.com/messense/aliyundrive-webdav</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.raidrive.com/">https://www.raidrive.com</a></li>
+</ol>
+<p><strong>基本的原理是，aliyundrive-webdav实现了阿里云盘的webdav,然后使用raildirve挂载webdav</strong>。</p>
+<h4 id="二-获取refresh-token"><a href="#二-获取refresh-token" class="headerlink" title="二.获取refresh-token"></a>二.获取refresh-token</h4><p>参考：<a target="_blank" rel="noopener" href="https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token">https://github.com/messense/aliyundrive-webdav#%E8%8E%B7%E5%8F%96-refresh_token</a><br>具体方法：  </p>
+<ol>
+<li>登录阿里云盘网页版，建议使用chromium内核的浏览器，chrome或者edge。</li>
+<li>按F12进调试模式，在<code>控制台</code>中输入<code>JSON.parse(localStorage.token).refresh_token</code>,即可看到refresh-token。<br><img src="https://user-images.githubusercontent.com/12248888/150632769-ea6b7a0f-4170-44d6-bafb-92b2a7c1726b.png" alt="获取refresh-token" title="refresh-token"></li>
+</ol>
+<h4 id="三-下载aliyundrive-webdav-exe"><a href="#三-下载aliyundrive-webdav-exe" class="headerlink" title="三.下载aliyundrive-webdav.exe"></a>三.下载aliyundrive-webdav.exe</h4><p>前往<a target="_blank" rel="noopener" href="https://github.com/messense/aliyundrive-webdav/releases">https://github.com/messense/aliyundrive-webdav/releases</a>下载windows下的可执行文件压缩包，我的是64位win10，所以下载<code>aliyundrive-webdav-v1.3.2.x86_64-pc-windows-msvc.zip</code>，下载后解压得到<code>aliyundrive-webdav.exe</code>。</p>
+<h4 id="四-开机启动aliyundrive-webdav-exe"><a href="#四-开机启动aliyundrive-webdav-exe" class="headerlink" title="四.开机启动aliyundrive-webdav.exe"></a>四.开机启动aliyundrive-webdav.exe</h4><ol>
+<li>使用bat脚本运行aliyundrive-webdav.exe。新建txt文件，并写入：<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">::隐藏<span class="built_in">cmd</span>窗口,但仍然会闪一下</span><br><span class="line">@<span class="built_in">echo</span> off </span><br><span class="line"><span class="keyword">if</span> &quot;%<span class="number">1</span>&quot; == &quot;h&quot; <span class="keyword">goto</span> begin </span><br><span class="line">    mshta vbscript:createobject(&quot;wscript.shell&quot;).run(&quot;%~nx0 h&quot;,<span class="number">0</span>)(window.close)&amp;&amp;<span class="keyword">exit</span> </span><br><span class="line">:begin </span><br><span class="line">::下面是要执行的命令</span><br><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Frank</span>\<span class="title">Downloads</span>\<span class="title">aliyundrive</span>-<span class="title">webdav</span>-<span class="title">v1</span>.3.2.<span class="title">x86_64</span>-<span class="title">pc</span>-<span class="title">windows</span>-<span class="title">msvc</span>\<span class="title">aliyundrive</span>-<span class="title">webdav.exe</span> ^</span></span><br><span class="line"><span class="function">--<span class="title">refresh</span>-<span class="title">token</span> <span class="title">xxxxxxxxxxxxxxx</span> ^</span></span><br><span class="line"><span class="function">--<span class="title">port</span> 8080 ^</span></span><br><span class="line"><span class="function">--<span class="title">auth</span>-<span class="title">user</span> <span class="title">admin</span> ^</span></span><br><span class="line"><span class="function">--<span class="title">auth</span>-<span class="title">password</span> <span class="title">admin123</span> ^</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>说明：</p>
 <ul>
-<li>clone 自己fork的仓库<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">♥root-16:47:17-&gt;&gt;~/workspace<span class="comment"># git clone git@github.com:iEngne/now-subconverter.git</span></span><br><span class="line">Cloning into <span class="string">&#x27;now-subconverter&#x27;</span>...</span><br><span class="line">remote: Enumerating objects: 1514, <span class="keyword">done</span>.</span><br><span class="line">remote: Counting objects: 100% (121/121), <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (110/110), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 1514 (delta 24), reused 57 (delta 5), pack-reused 1393</span><br><span class="line">Receiving objects: 100% (1514/1514), 46.51 MiB | 991.00 KiB/s, <span class="keyword">done</span>.</span><br><span class="line">Resolving deltas: 100% (636/636), <span class="keyword">done</span>.</span><br></pre></td></tr></table></figure></li>
-<li>确认当前分支是否是要合并的分支，<code>git brakch -a</code>，如果不是切换到相应的分支。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">♥root-17:11:23-&gt;&gt;~/workspace/now-subconverter<span class="comment"># git branch  -a</span></span><br><span class="line">* master</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br></pre></td></tr></table></figure></li>
-<li>设置<strong>upstream</strong>.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">♥root-16:48:43-&gt;&gt;~/workspace/now-subconverter<span class="comment"># git remote add upstream https://github.com/zhongfly/now-subconverter.git</span></span><br><span class="line">♥root-16:51:15-&gt;&gt;~/workspace/now-subconverter<span class="comment"># git remote -v</span></span><br><span class="line">origin  git@github.com:iEngne/now-subconverter.git (fetch)</span><br><span class="line">origin  git@github.com:iEngne/now-subconverter.git (push)</span><br><span class="line">upstream        https://github.com/zhongfly/now-subconverter.git (fetch)</span><br><span class="line">upstream        https://github.com/zhongfly/now-subconverter.git (push)</span><br></pre></td></tr></table></figure></li>
-<li>从远程取出<strong>upstream</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">♥root-16:51:20-&gt;&gt;~/workspace/now-subconverter<span class="comment"># git fetch upstream</span></span><br><span class="line">remote: Enumerating objects: 32, <span class="keyword">done</span>.</span><br><span class="line">remote: Counting objects: 100% (32/32), <span class="keyword">done</span>.</span><br><span class="line">remote: Compressing objects: 100% (20/20), <span class="keyword">done</span>.</span><br><span class="line">remote: Total 26 (delta 15), reused 17 (delta 6), pack-reused 0</span><br><span class="line">Unpacking objects: 100% (26/26), <span class="keyword">done</span>.</span><br><span class="line">From https://github.com/zhongfly/now-subconverter</span><br><span class="line"> * [new branch]      master     -&gt; upstream/master</span><br></pre></td></tr></table></figure></li>
-<li>查看下分支情况，<code>git branch -a</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">♥root-17:29:13-&gt;&gt;~/workspace/now-subconverter<span class="comment"># git branch  -a</span></span><br><span class="line">* master</span><br><span class="line">  remotes/origin/HEAD -&gt; origin/master</span><br><span class="line">  remotes/origin/master</span><br><span class="line">  remotes/upstream/master</span><br></pre></td></tr></table></figure></li>
-<li>执行合并<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">♥root-17:31:27-&gt;&gt;~/workspace/now-subconverter<span class="comment"># git merge upstream/master</span></span><br><span class="line">warning: Cannot merge binary files: subconverter/subconverter.exe (HEAD vs. upstream/master)</span><br><span class="line">Auto-merging subconverter/subconverter.exe</span><br><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> subconverter/subconverter.exe</span><br><span class="line">Auto-merging subconverter/snippets/emoji.toml</span><br><span class="line">CONFLICT (add/add): Merge conflict <span class="keyword">in</span> subconverter/snippets/emoji.toml</span><br><span class="line">Auto-merging subconverter/pref.example.toml</span><br><span class="line">CONFLICT (add/add): Merge conflict <span class="keyword">in</span> subconverter/pref.example.toml</span><br><span class="line">Automatic merge failed; fix conflicts and <span class="keyword">then</span> commit the result.</span><br></pre></td></tr></table></figure></li>
-<li>查看冲突<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">♥root-17:31:44-&gt;&gt;~/workspace/now-subconverter<span class="comment"># git status</span></span><br><span class="line"><span class="comment"># On branch master</span></span><br><span class="line"><span class="comment"># You have unmerged paths.</span></span><br><span class="line"><span class="comment">#   (fix conflicts and run &quot;git commit&quot;)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Unmerged paths:</span></span><br><span class="line"><span class="comment">#   (use &quot;git add &lt;file&gt;...&quot; to mark resolution)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#       both added:         subconverter/pref.example.toml</span></span><br><span class="line"><span class="comment">#       both added:         subconverter/snippets/emoji.toml</span></span><br><span class="line"><span class="comment">#       both modified:      subconverter/subconverter.exe</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br></pre></td></tr></table></figure></li>
-<li>直接从GUI界面打开文件修改冲突，或者使用<code>git mergetool</code>命令从命令行打开merge工具，如果有装VIM默认调用vimdiff.  </li>
-<li>修改后<strong>commit</strong>和<strong>push</strong>就OK.</li>
+<li><code>aliyundrive-webdav.exe</code>的路径根据自己的实际情况修改。</li>
+<li><code>refresh-token</code>就是第一步中获取的值</li>
+<li><code>port</code>端口号不要跟其他服务冲突</li>
+<li><code>auth-user</code>，<code>auth-password</code>的内容可以自定，这两项会在后面的RaiDrive软件中用到。</li>
 </ul>
+<ol start="2">
+<li>将txt文件命名为<code>run_aliyun_dirver_webdav.bat</code>，并保存到合适的位置，右键单击创建一个快捷方式。</li>
+<li>按住<code>Ctrl + r</code>启动”运行”, 输入<code>shell:startup</code>并回车，会打开windows的开机启动文件夹，将快捷方式放入其中。</li>
+<li>双击快捷方式启动aliyundrive-webdav.exe</li>
+</ol>
+<h4 id="安装配置RaiDrive"><a href="#安装配置RaiDrive" class="headerlink" title="安装配置RaiDrive"></a>安装配置RaiDrive</h4><ol>
+<li>安装<br>不用多说了，去上面的官网下载安装就行。</li>
+<li>配置<br><img src="https://gitlab.com/iEngne/images/-/raw/main/2022/5/RaiDrive.png" alt="RaiDrive配置" title="RaiDrive配置界面"></li>
+</ol>
+<ul>
+<li>storage选<code>NAS</code>-&gt;<code>WebDAV</code></li>
+<li><code>不要勾选&#39;Address&#39;</code>，否则变成https连接了。</li>
+<li>地址填”127.0.0.1”本地地址，端口号就是bat脚本中的端口号。</li>
+<li>Account就是bat脚本中的auth-user和auth-password。</li>
+<li>点击<code>connect</code></li>
+</ul>
+<p>资源管理器出现以下磁盘就表示成功了：<br><img src="https://gitlab.com/iEngne/images/-/raw/main/2022/5/aliyun-WebDAV.png" alt="网盘挂载成功" title="网盘挂载成功"></p>
 
     </div>
 
@@ -272,7 +306,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/github/" rel="tag"># github</a>
+              <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98/" rel="tag"># 阿里云盘</a>
+              <a href="/tags/WebDAV/" rel="tag"># WebDAV</a>
           </div>
 
         
@@ -281,13 +316,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/01/12/vscode-ssh/" rel="prev" title="vscode ssh 远程登录天坑,使用密钥后仍需要输入密码">
-      <i class="fa fa-chevron-left"></i> vscode ssh 远程登录天坑,使用密钥后仍需要输入密码
+    <a href="/2022/05/05/sort/" rel="prev" title="一些经典排序算法的实现">
+      <i class="fa fa-chevron-left"></i> 一些经典排序算法的实现
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/04/28/c-complex-declaration/" rel="next" title="C语言中复杂类型的声明">
-      C语言中复杂类型的声明 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -346,6 +378,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%80-git%E4%BB%93%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">尝试一 git仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%BA%8C-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E3%80%81%E5%9D%9A%E6%9E%9C%E4%BA%91%E3%80%81%E5%92%8C%E5%BD%A9%E4%BA%91%E7%AD%89%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8A%9F%E8%83%BD%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">尝试二 百度网盘、坚果云、和彩云等的同步功能。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90-%E5%B0%9D%E8%AF%95%E4%B8%89-%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E6%9C%AC%E5%9C%B0%E6%8C%82%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">(推荐)尝试三 阿里云盘本地挂载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80-%E9%9C%80%E8%A6%81%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">一.需要的软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-%E8%8E%B7%E5%8F%96refresh-token"><span class="nav-number">3.2.</span> <span class="nav-text">二.获取refresh-token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89-%E4%B8%8B%E8%BD%BDaliyundrive-webdav-exe"><span class="nav-number">3.3.</span> <span class="nav-text">三.下载aliyundrive-webdav.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B-%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8aliyundrive-webdav-exe"><span class="nav-number">3.4.</span> <span class="nav-text">四.开机启动aliyundrive-webdav.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AERaiDrive"><span class="nav-number">3.5.</span> <span class="nav-text">安装配置RaiDrive</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
