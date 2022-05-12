@@ -30,8 +30,10 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/12248888/150632769-ea6b7a0f-4170-44d6-bafb-92b2a7c1726b.png">
 <meta property="og:image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/5/RaiDrive.png">
 <meta property="og:image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/5/aliyun-WebDAV.png">
+<meta property="og:image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/5/WebDAV-bug1.png">
+<meta property="og:image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/5/WebDAV-bug.png">
 <meta property="article:published_time" content="2022-05-10T08:24:51.000Z">
-<meta property="article:modified_time" content="2022-05-11T07:43:56.151Z">
+<meta property="article:modified_time" content="2022-05-12T02:22:28.776Z">
 <meta property="article:author" content="iEngne">
 <meta property="article:tag" content="阿里云盘">
 <meta property="article:tag" content="WebDAV">
@@ -231,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-11 15:43:56" itemprop="dateModified" datetime="2022-05-11T15:43:56+08:00">2022-05-11</time>
+                <time title="修改时间：2022-05-12 10:22:28" itemprop="dateModified" datetime="2022-05-12T10:22:28+08:00">2022-05-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,7 +260,7 @@
 <span id="more"></span>
 <h3 id="尝试一-git仓库"><a href="#尝试一-git仓库" class="headerlink" title="尝试一 git仓库"></a>尝试一 git仓库</h3><p>首先想到的是github或者gitlab存储，修改后通过git push保存修改内容。但是书有2个G多，github单个仓库限额1G,gitlab虽然页面写着<code>git push and GitLab project imports are limited to 5 GB per request through Cloudflare.</code>但是实际测试了下，发现还是失败了。况且实际使用时还挺麻烦，还得自己commit，push，最终放弃了。</p>
 <h3 id="尝试二-百度网盘、坚果云、和彩云等的同步功能。"><a href="#尝试二-百度网盘、坚果云、和彩云等的同步功能。" class="headerlink" title="尝试二 百度网盘、坚果云、和彩云等的同步功能。"></a>尝试二 百度网盘、坚果云、和彩云等的同步功能。</h3><p>百度网盘自带有同步盘功能—同步空间。试了下还不错，还有同步记录，但是有流量限制，每个月1G，我这2G的电子书，完成同步需要2个月，太费劲了。包括坚果云也一样，有流量限制，放弃了，和彩云的没试。</p>
-<h3 id="推荐-尝试三-阿里云盘本地挂载"><a href="#推荐-尝试三-阿里云盘本地挂载" class="headerlink" title="(推荐)尝试三 阿里云盘本地挂载"></a>(推荐)尝试三 阿里云盘本地挂载</h3><p>想起之前给路由器刷OpenWrt的时候，有可以将阿里云盘挂载到路由器的插件，搜了搜，发现有win10下挂载阿里云盘的方法，挂载后在windows资源管理器中有盘符，跟访问本地磁盘一样，类似挂载samba的效果，可以说非常棒了。</p>
+<h3 id="尝试三-阿里云盘本地挂载"><a href="#尝试三-阿里云盘本地挂载" class="headerlink" title="尝试三 阿里云盘本地挂载"></a>尝试三 阿里云盘本地挂载</h3><p>想起之前给路由器刷OpenWrt的时候，有可以将阿里云盘挂载到路由器的插件，搜了搜，发现有win10下挂载阿里云盘的方法，挂载后在windows资源管理器中有盘符，跟访问本地磁盘一样，类似挂载samba的效果，可以说非常棒了。</p>
 <h4 id="一-需要的软件"><a href="#一-需要的软件" class="headerlink" title="一.需要的软件"></a>一.需要的软件</h4><ol>
 <li><a target="_blank" rel="noopener" href="https://github.com/messense/aliyundrive-webdav">https://github.com/messense/aliyundrive-webdav</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.raidrive.com/">https://www.raidrive.com</a></li>
@@ -299,8 +301,10 @@
 <p>资源管理器出现以下磁盘就表示成功了：<br><img src="https://gitlab.com/iEngne/images/-/raw/main/2022/5/aliyun-WebDAV.png" alt="网盘挂载成功" title="网盘挂载成功"></p>
 <h4 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h4><ul>
 <li>直接从挂载盘打开PDF文件会有点慢，保存文件也会比较慢，复制大文件到挂载的盘速度挺快的，但是小文件速度很慢。</li>
-<li>有问题再补充</li>
+<li>修改文件后保存，会在文件相同目录生成一个隐藏文件夹，应该是同步文件的时候用的，但是没有删除，文件夹名应该是哈希值，<br><img src="https://gitlab.com/iEngne/images/-/raw/main/2022/5/WebDAV-bug1.png"></li>
+<li>2022.05.12，发现重大bug，保存后部分文件内容被删了，PDF后面的页面都变成空白的了,不知道是aliyundrive-webdav的问题还是raidrive的问题，都不知道该往哪家提issue，算了这个方式的放弃了。<br> <img src="https://gitlab.com/iEngne/images/-/raw/main/2022/5/WebDAV-bug.png"></li>
 </ul>
+<p> <code>PS</code>:不过，WebDAV挂载阿里云盘拿来只读问题还是不错的，比如拿来看阿里云盘里的影视剧。</p>
 
     </div>
 
@@ -382,7 +386,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%80-git%E4%BB%93%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">尝试一 git仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%BA%8C-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E3%80%81%E5%9D%9A%E6%9E%9C%E4%BA%91%E3%80%81%E5%92%8C%E5%BD%A9%E4%BA%91%E7%AD%89%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8A%9F%E8%83%BD%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">尝试二 百度网盘、坚果云、和彩云等的同步功能。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90-%E5%B0%9D%E8%AF%95%E4%B8%89-%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E6%9C%AC%E5%9C%B0%E6%8C%82%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">(推荐)尝试三 阿里云盘本地挂载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80-%E9%9C%80%E8%A6%81%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">一.需要的软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-%E8%8E%B7%E5%8F%96refresh-token"><span class="nav-number">3.2.</span> <span class="nav-text">二.获取refresh-token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89-%E4%B8%8B%E8%BD%BDaliyundrive-webdav-exe"><span class="nav-number">3.3.</span> <span class="nav-text">三.下载aliyundrive-webdav.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B-%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8aliyundrive-webdav-exe"><span class="nav-number">3.4.</span> <span class="nav-text">四.开机启动aliyundrive-webdav.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AERaiDrive"><span class="nav-number">3.5.</span> <span class="nav-text">安装配置RaiDrive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD"><span class="nav-number">3.6.</span> <span class="nav-text">后续</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%80-git%E4%BB%93%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">尝试一 git仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%BA%8C-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E3%80%81%E5%9D%9A%E6%9E%9C%E4%BA%91%E3%80%81%E5%92%8C%E5%BD%A9%E4%BA%91%E7%AD%89%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8A%9F%E8%83%BD%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">尝试二 百度网盘、坚果云、和彩云等的同步功能。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%89-%E9%98%BF%E9%87%8C%E4%BA%91%E7%9B%98%E6%9C%AC%E5%9C%B0%E6%8C%82%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">尝试三 阿里云盘本地挂载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80-%E9%9C%80%E8%A6%81%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">一.需要的软件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-%E8%8E%B7%E5%8F%96refresh-token"><span class="nav-number">3.2.</span> <span class="nav-text">二.获取refresh-token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89-%E4%B8%8B%E8%BD%BDaliyundrive-webdav-exe"><span class="nav-number">3.3.</span> <span class="nav-text">三.下载aliyundrive-webdav.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B-%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8aliyundrive-webdav-exe"><span class="nav-number">3.4.</span> <span class="nav-text">四.开机启动aliyundrive-webdav.exe</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AERaiDrive"><span class="nav-number">3.5.</span> <span class="nav-text">安装配置RaiDrive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD"><span class="nav-number">3.6.</span> <span class="nav-text">后续</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
