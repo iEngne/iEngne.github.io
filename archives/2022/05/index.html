@@ -369,7 +369,7 @@
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
-          <a href="https://iengne.vercel.app/" title="https:&#x2F;&#x2F;iengne.vercel.app&#x2F;">BlogSite</a>
+          <a href="https://iengne.vercel.app/" title="https:&#x2F;&#x2F;iengne.vercel.app&#x2F;">备用博客地址</a>
         </li>
     </ul>
   </div>
@@ -460,7 +460,7 @@
 
 <script>
 NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  NexT.utils.getScript('https://unpkg.com/valine@1.4.18/dist/Valine.min.js', () => {
     var GUEST = ['nick', 'mail', 'link'];
     var guest = 'nick,mail,link';
     guest = guest.split(',').filter(item => {
@@ -469,11 +469,11 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     new Valine({
       el         : '#valine-comments',
       verify     : true,
-      notify     : true,
+      notify     : false,
       appId      : '4Jb8Iu1H0N29k1j8Mf9loL8F-MdYXbMMI',
       appKey     : 'Encd0Oyl47xehKPCzKp3CQLx',
       placeholder: "想说什么就说吧",
-      avatar     : 'robohash',
+      avatar     : 'identicon',
       meta       : guest,
       pageSize   : '10' || 10,
       visitor    : true,
