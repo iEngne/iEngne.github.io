@@ -1,532 +1,152 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://gitlab.com/iEngne/images/-/raw/main/2022/3/wing/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://gitlab.com/iEngne/images/-/raw/main/2022/3/wing/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://gitlab.com/iEngne/images/-/raw/main/2022/3/wing/favicon-16x16.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"iengne.vercel.app","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
-  </script>
-
-  <meta name="description" content="给定一定范围的自然数，找出里面所有的质数主要有2种方式：  遍历每一个数并判断是不是质数，如果是就存起来。 借助一定的算法直接筛选。">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>质数判断和筛质数 | 孑影</title><meta name="keywords" content="数学,质数"><meta name="author" content="iEngne"><meta name="copyright" content="iEngne"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="给定一定范围的自然数，找出里面所有的质数主要有2种方式：  遍历每一个数并判断是不是质数，如果是就存起来。 借助一定的算法直接筛选。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="质数判断和筛质数">
 <meta property="og:url" content="https://iengne.vercel.app/2022/04/29/prime-number/index.html">
 <meta property="og:site_name" content="孑影">
 <meta property="og:description" content="给定一定范围的自然数，找出里面所有的质数主要有2种方式：  遍历每一个数并判断是不是质数，如果是就存起来。 借助一定的算法直接筛选。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
 <meta property="article:published_time" content="2022-04-29T09:03:37.000Z">
 <meta property="article:modified_time" content="2022-05-05T02:00:37.458Z">
 <meta property="article:author" content="iEngne">
 <meta property="article:tag" content="数学">
 <meta property="article:tag" content="质数">
 <meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://iengne.vercel.app/2022/04/29/prime-number/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>质数判断和筛质数 | 孑影</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="https://gitlab.com/iEngne/images/-/raw/main/2022/1/favicon.ico"><link rel="canonical" href="https://iengne.vercel.app/2022/04/29/prime-number/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '质数判断和筛质数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-05-05 10:00:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
 
-</head>
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">孑影</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">9</span></a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">14</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">3</span></a>
-
-  </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-  <a href="https://github.com/iEngne" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
   
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://iengne.vercel.app/2022/04/29/prime-number/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://gitlab.com/iEngne/images/-/raw/main/2022/3/wing/android-chrome-192x192.png">
-      <meta itemprop="name" content="iEngne">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孑影">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          质数判断和筛质数
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-29 17:03:37" itemprop="dateCreated datePublished" datetime="2022-04-29T17:03:37+08:00">2022-04-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-05 10:00:37" itemprop="dateModified" datetime="2022-05-05T10:00:37+08:00">2022-05-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2022/04/29/prime-number/" class="post-meta-item leancloud_visitors" data-flag-title="质数判断和筛质数" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
     
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-    <a title="valine" href="/2022/04/29/prime-number/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/29/prime-number/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p>给定一定范围的自然数，找出里面所有的质数主要有2种方式：</p>
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2022/01/14/dAzl26o8Cygr5ZF.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">孑影</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">质数判断和筛质数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-04-29T09:03:37.000Z" title="发表于 2022-04-29 17:03:37">2022-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-05T02:00:37.458Z" title="更新于 2022-05-05 10:00:37">2022-05-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="质数判断和筛质数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>给定一定范围的自然数，找出里面所有的质数主要有2种方式：</p>
 <ol>
 <li>遍历每一个数并判断是不是质数，如果是就存起来。</li>
 <li>借助一定的算法直接筛选。<span id="more"></span></li>
 </ol>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdio.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdlib.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdbool.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;math.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/******************判断质数**********************/</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 枚举法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 版本1：根据质数的定义，对于大于2的自然数n，从2开始到n-1看是否存在能整除n的数，</span></span><br><span class="line"><span class="comment"> * 如果存在，则是合数，否则为质数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 版本2：无需判断从2~n-1的所有数，只需要判断2~n的平方根的数是否能整除就行</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 版本3：对于所有大于3的质数具有6n+1(n &gt;= 1)或者6n-1的性质</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 结合2和3的代码示例，时间复杂度O(sqrt(n))</span></span><br><span class="line"><span class="comment">// leetcode中，计算从1到709486有几个质数，耗时28ms</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">isPrime3</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">2</span> || n == <span class="number">3</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">6</span> != <span class="number">1</span> &amp;&amp; n % <span class="number">6</span> != <span class="number">5</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="type">int</span> j = <span class="built_in">sqrt</span>(n);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">5</span>; i &lt;= j; i += <span class="number">6</span>)&#123;</span><br><span class="line">        <span class="comment">// 形如6k+1(k &gt;= 1)或者6k-1的合数，一定可以被6m+1或者6m-1的数所整除</span></span><br><span class="line">        <span class="comment">// 因为合数肯定可以因式分解，而所有的质数都形如6m + 1 或者6m - 1(m &gt;=1)</span></span><br><span class="line">        <span class="keyword">if</span> (n % i == <span class="number">0</span> || n % (i + <span class="number">2</span>) == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, n);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @brief 分解质因数-短除法</span></span><br><span class="line"><span class="comment"> * 版本1：要从最小的质数除起（依次除于质数2 3 5....)一直到n，时间复杂度为O(n)</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 版本2：n中最多只含有一个大于sqrt(n)的质因子。</span></span><br><span class="line"><span class="comment"> *       证明：通过反证法：如果有两个大于sqrt(n)的因子，那么相乘会大于n，矛盾。证毕</span></span><br><span class="line"><span class="comment"> *       于是我们发现最多只有一个大于sqrt(n)的因子，对其进行优化。先考虑比sqrt(n)小的，代码和质数的判定类似</span></span><br><span class="line"><span class="comment"> *       最后如果n还是&gt;1，说明此时的n就是大于sqrt(n)的唯一质因子，输出即可，时间复杂度O(sqrt(n))</span></span><br><span class="line"><span class="comment"> * 这种方法，运算次数太多，还不如枚举法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">divide1</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> s = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 证明一下循环里面的i一定是一个质数：假如 i 是一个合数，</span></span><br><span class="line">        <span class="comment">// 那么它一定可以分解成多个质因子相乘的形式，</span></span><br><span class="line">        <span class="comment">// 这多个质因子同时也是 n 的质因子且比i要小，</span></span><br><span class="line">        <span class="comment">// 而比i小的数在之前的循环过程中一定是被条件除完了的，所以i不可能是合数，只可能是质数</span></span><br><span class="line">        <span class="keyword">if</span>(n % i == <span class="number">0</span>)<span class="comment">//i一定是质数</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(n % i == <span class="number">0</span>)<span class="comment">//短除法分解质因数</span></span><br><span class="line">            &#123;</span><br><span class="line">                n /= i;</span><br><span class="line">                ++s;<span class="comment">//统计质因数的个数</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s &gt; <span class="number">1</span>? <span class="literal">false</span>:<span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用此方法，leetcode中，计算从1到709486有几个质数，耗时408ms</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">divide2</span><span class="params">(<span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> s = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n / i; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(n % i == <span class="number">0</span>)<span class="comment">//i一定是质数</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//s = 0;</span></span><br><span class="line">            <span class="keyword">while</span>(n % i == <span class="number">0</span>)<span class="comment">//短除法分解质因数</span></span><br><span class="line">            &#123;</span><br><span class="line">                n /= i;</span><br><span class="line">                ++s;<span class="comment">//统计质因数的个数</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//printf(&quot;%d %d\n&quot;, i, s);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//if(n &gt; 1) printf(&quot;%d %d\n&quot;, n, 1);//当n没有变化的时候，输出本身和1</span></span><br><span class="line">    n &gt; <span class="number">1</span>? ++s:s; <span class="comment">// n还是大于1的，说明此时的n就是一个质数，s需要加1</span></span><br><span class="line">    <span class="keyword">return</span> s &gt; <span class="number">1</span>? <span class="literal">false</span>:<span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">countPrimes</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">        divide1(i)?++res:res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///////////////////////////筛质数///////////////////////////</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 朴素筛法</span></span><br><span class="line"><span class="comment"> * 枚举i：2~n，从前往后把每个数对应的倍数都删除掉，这样筛过之后，所有剩下的数都是质数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//朴素筛法-O(nlogn)</span></span><br><span class="line"><span class="comment">// leetcode n=709486时耗时28ms</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">countPrimes1</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="comment">// 存储质数</span></span><br><span class="line">    <span class="type">int</span>* primeNums = (<span class="type">int</span>*)<span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">    <span class="comment">// 计数</span></span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 标记</span></span><br><span class="line">    <span class="type">int</span>* flag = (<span class="type">int</span>*)<span class="built_in">calloc</span>(n + <span class="number">1</span>, <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt; n; ++i)&#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i])&#123;</span><br><span class="line">            primeNums[count++] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将所有i的倍数都标记，这些标记的数肯定是合数</span></span><br><span class="line">        <span class="keyword">for</span> (j = i + i; j &lt; n; j += i)&#123;</span><br><span class="line">            flag[j] = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(primeNums);</span><br><span class="line">    <span class="built_in">free</span>(flag);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">埃氏筛法是对朴素筛法的一种优化方式，我们并不需要把2~n的每一个数的倍数都删掉，可以只把所有质数的倍数删掉！</span></span><br><span class="line"><span class="comment">因为合数的倍数，肯定也是比这个合数小的质数的某个倍数</span></span><br><span class="line"><span class="comment">时间复杂度：O(n * loglogn)，近似O(n)</span></span><br><span class="line"><span class="comment"> * // leetcode n = n=709486时耗时8ms</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">countPrimes2</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="comment">// 存储质数</span></span><br><span class="line">    <span class="comment">//int* primeNums = (int*)malloc(n * sizeof(int));</span></span><br><span class="line">    <span class="comment">// 计数</span></span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 标记</span></span><br><span class="line">    <span class="type">int</span>* flag = (<span class="type">int</span>*)<span class="built_in">calloc</span>(n, <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt; n; ++i)&#123;</span><br><span class="line">        <span class="comment">// 进入这个if条件的都是质数，合数都在之前的循环中被标记为true了</span></span><br><span class="line">        <span class="keyword">if</span> (!flag[i])&#123;</span><br><span class="line">            <span class="comment">// primeNums[count++] = i;</span></span><br><span class="line">            ++count;</span><br><span class="line">            <span class="comment">// 将所有i的倍数都标记，这些标记的数肯定是合数</span></span><br><span class="line">            <span class="keyword">for</span> (j = i + i; j &lt; n; j += i)&#123;</span><br><span class="line">                flag[j] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//free(primeNums);</span></span><br><span class="line">    <span class="built_in">free</span>(flag);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">线性（欧拉）筛法</span></span><br><span class="line"><span class="comment">埃氏筛法的缺陷 ：对于一个合数，有可能被筛多次。例如 30 = 2 * 15 = 3 * 10 = 5*6……</span></span><br><span class="line"><span class="comment">那么如何确保每个合数只被筛选一次呢？我们只要用它的最小质因子来筛选即可，这便是欧拉筛法。</span></span><br><span class="line"><span class="comment">欧拉筛法的基本思想 ：在埃氏筛法的基础上，让每个合数只被它的最小质因子筛选一次，以达到不重复的目的。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">countPrimes3</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="comment">// 存储质数</span></span><br><span class="line">    <span class="type">int</span>* primeNums = (<span class="type">int</span>*)<span class="built_in">malloc</span>(n * <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">    <span class="comment">// 计数</span></span><br><span class="line">    <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 标记合数</span></span><br><span class="line">    <span class="type">int</span>* flag = (<span class="type">int</span>*)<span class="built_in">calloc</span>(n, <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">    <span class="type">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt; n; ++i)&#123;</span><br><span class="line">        <span class="comment">// 将数从小到大遍历的过程中，没被标记的数一定是质数</span></span><br><span class="line">        <span class="keyword">if</span> (!flag[i])&#123;</span><br><span class="line">            primeNums[count++] = i;</span><br><span class="line">            ++count;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 以下这组循环，意思是以一个固定的倍数i去乘以不同的质数，并加上0 == i % primeNums[j]判断来保证</span></span><br><span class="line">        <span class="comment">// 这些数是以primeNums[j]为最小质因数的合数</span></span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; i * primeNums[j] &lt; n; ++j)&#123;</span><br><span class="line">            <span class="comment">// primeNums[]存放的是从小到大排列的质数，i在内循环中都是不变的，</span></span><br><span class="line">            <span class="comment">// i作为一个倍数去乘以质数来得到不同的合数。当j从0开始遍历的时候，</span></span><br><span class="line">            <span class="comment">// 一开始的一次或几次循环中，i * primeNums[j]得到的合数，肯定是以</span></span><br><span class="line">            <span class="comment">// primeNums[j]为最小质因数的。那么这些数都可以打上标记。i % primeNums[j] == 0</span></span><br><span class="line">            <span class="comment">// 是在判断primeNums[j]是不是i的最小质因数。当j继续增大，</span></span><br><span class="line">            <span class="comment">// 如果出现某个i0可以被某个primeNums[j0]整除，说明此时i0可以分解成</span></span><br><span class="line">            <span class="comment">// primeNums[j0]和一个比primeNums[j0]大的质数的乘积，我们将这个比primeNums[j0]大</span></span><br><span class="line">            <span class="comment">// 的数称为primeNums[j1]。此时，</span></span><br><span class="line">            <span class="comment">// i0 * primeNums[j0] = primeNums[j0] * primeNums[j1] * primeNums[j0](其中j1 &gt; j0)。</span></span><br><span class="line">            <span class="comment">// primeNums[j0]的值还是i0 * primeNums[j0]这个合数的最小质因数，但是下一次循环，</span></span><br><span class="line">            <span class="comment">// 也就是i0 * primeNums[k0](其中k0 = j0 + 1)，却不是以primeNums[k0]为最小质因数的合数了，</span></span><br><span class="line">            <span class="comment">// 因为i0 * primeNums[k0] = primeNums[j0] * primeNums[j1] * primeNums[k0],</span></span><br><span class="line">            <span class="comment">// 这里最小的质数是primeNums[j0],i0已经可以被上一次循环的primeNums[j0]因式分解。</span></span><br><span class="line">            <span class="comment">// 如果仍然标记flag[i0 * primeNums[k0]] = 1,会造成重复标记。因为</span></span><br><span class="line">            <span class="comment">// 令i_ = primeNums[j1] * primeNums[k0] &gt; i0, i0 * primeNums[k0] = i_ * primeNums[j0],</span></span><br><span class="line">            <span class="comment">// 即当外层循环递增到i_时，又会标记一次i0 * primeNums[k0]这个合数。</span></span><br><span class="line">            <span class="comment">// 所以当i % primeNums[j] == 0时，应该推出循环了。</span></span><br><span class="line">            flag[i * primeNums[j]] = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">// j继续增大，会不会一直找不到primeNums[j]可以整除i,不可能，为什么？</span></span><br><span class="line">            <span class="comment">// 因为小于等于i的质数都在primeNums中，</span></span><br><span class="line">            <span class="comment">// 如果i是合数，合数一定可以因式分解，一定存在小于i的质数能整除i，</span></span><br><span class="line">            <span class="comment">// 如果i是质数，那么i已经放在了primeNums中，正好是最后一个，</span></span><br><span class="line">            <span class="comment">// 质数当然可以被自己整除。</span></span><br><span class="line">            <span class="keyword">if</span> ((<span class="number">0</span> == i % primeNums[j]))&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(primeNums);</span><br><span class="line">    <span class="built_in">free</span>(flag);</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span>&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">709486</span>;</span><br><span class="line">    <span class="keyword">if</span> (argc &gt; <span class="number">1</span>)&#123;</span><br><span class="line">        n = atoi(argv[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;count:%d\n&quot;</span>, countPrimes2(n));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%95%B0%E5%AD%A6/" rel="tag"># 数学</a>
-              <a href="/tags/%E8%B4%A8%E6%95%B0/" rel="tag"># 质数</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/04/29/AVL-tree/" rel="prev" title="AVL-tree">
-      <i class="fa fa-chevron-left"></i> AVL-tree
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/05/05/heap/" rel="next" title="二叉堆">
-      二叉堆 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="valine-comments"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="iEngne"
-      src="https://gitlab.com/iEngne/images/-/raw/main/2022/3/wing/android-chrome-192x192.png">
-  <p class="site-author-name" itemprop="name">iEngne</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">9</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">14</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/iEngne" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;iEngne" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:iEngne@protonmail.com" title="E-Mail → mailto:iEngne@protonmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://iengne.vercel.app/" title="https:&#x2F;&#x2F;iengne.vercel.app&#x2F;">备用博客地址</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2015 – 
-  <span itemprop="copyrightYear">2022</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">iEngne</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('https://unpkg.com/valine@1.4.18/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : true,
-      notify     : false,
-      appId      : '4Jb8Iu1H0N29k1j8Mf9loL8F-MdYXbMMI',
-      appKey     : 'Encd0Oyl47xehKPCzKp3CQLx',
-      placeholder: "想说什么就说吧",
-      avatar     : 'identicon',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : true,
-      serverURLs : 'https://4jb8iu1h.api.lncldglobal.com'
-    });
-  }, window.Valine);
-});
-</script>
-
-</body>
-</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://iengne.vercel.app">iEngne</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://iengne.vercel.app/2022/04/29/prime-number/">https://iengne.vercel.app/2022/04/29/prime-number/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://iengne.vercel.app" target="_blank">孑影</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%AD%A6/">数学</a><a class="post-meta__tags" href="/tags/%E8%B4%A8%E6%95%B0/">质数</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/05/heap/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">二叉堆</div></div></a></div><div class="next-post pull-right"><a href="/2022/04/29/AVL-tree/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">AVL-tree</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2022/01/14/dAzl26o8Cygr5ZF.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">iEngne</div><div class="author-info__description">记录那些瞎折腾</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/iEngne"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/iengne" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:iEngne@protonmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcome to my blog.</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/09/bit_order/" title="字节序中的位序"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字节序中的位序"/></a><div class="content"><a class="title" href="/2022/06/09/bit_order/" title="字节序中的位序">字节序中的位序</a><time datetime="2022-06-09T07:06:35.000Z" title="发表于 2022-06-09 15:06:35">2022-06-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/10/aliyun-driver-webdav/" title="win10下挂载阿里云网盘用于同步文件"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="win10下挂载阿里云网盘用于同步文件"/></a><div class="content"><a class="title" href="/2022/05/10/aliyun-driver-webdav/" title="win10下挂载阿里云网盘用于同步文件">win10下挂载阿里云网盘用于同步文件</a><time datetime="2022-05-10T08:24:51.000Z" title="发表于 2022-05-10 16:24:51">2022-05-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/05/sort/" title="一些经典排序算法的实现"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些经典排序算法的实现"/></a><div class="content"><a class="title" href="/2022/05/05/sort/" title="一些经典排序算法的实现">一些经典排序算法的实现</a><time datetime="2022-05-05T02:25:13.000Z" title="发表于 2022-05-05 10:25:13">2022-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/05/heap/" title="二叉堆"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="二叉堆"/></a><div class="content"><a class="title" href="/2022/05/05/heap/" title="二叉堆">二叉堆</a><time datetime="2022-05-05T01:49:14.000Z" title="发表于 2022-05-05 09:49:14">2022-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/29/prime-number/" title="质数判断和筛质数"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="质数判断和筛质数"/></a><div class="content"><a class="title" href="/2022/04/29/prime-number/" title="质数判断和筛质数">质数判断和筛质数</a><time datetime="2022-04-29T09:03:37.000Z" title="发表于 2022-04-29 17:03:37">2022-04-29</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By iEngne</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
